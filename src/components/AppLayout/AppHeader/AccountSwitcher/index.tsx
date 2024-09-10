@@ -1,3 +1,5 @@
+import { useCallback, useContext } from 'react'
+
 import {
   Avatar,
   Box,
@@ -24,6 +26,10 @@ import { useCurrentUser } from '~/hooks/useCurrentUser';
 import { getLoginLink } from '~/utils/login-helpers';
 import { showErrorNotification } from '~/utils/notifications';
 import { getInitials } from '~/utils/string-helpers';
+
+import { StoreContext } from '../ModalContext'
+
+import { useStore } from 'zustand'
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -146,22 +152,25 @@ const UserRow = ({ data }: { data: CivitaiAccount }) => {
   );
 };
 
-export const AccountSwitcher = ({
+function AccountSwitcher({
   inMenu = true,
-  setUserSwitching,
-  close,
 }: {
   inMenu?: boolean;
-  setUserSwitching: Dispatch<SetStateAction<boolean>>;
-  close: () => void;
-}) => {
+}) {
   const { classes } = useStyles();
   const { accounts, swapAccount } = useAccountContext();
+  const store = useContext(StoreContext)
+  const [userSwitching, setUserSwitching] = useStore(store, (state) => [state.userSwitching, state.setUserSwitching])
+  const closeAll = useStore(store, (state) => state.closeAll)
+
+  const onDisable = useCallback(() => {
+    setUserSwitching(false)
+  }, [])
 
   if (inMenu) {
     return (
       <>
-        <Menu.Item onClick={() => setUserSwitching(false)} closeMenuOnClick={false}>
+        <Menu.Item onClick={onDisable} closeMenuOnClick={false}>
           <Group>
             <IconChevronLeft />
             <Text>Back</Text>
@@ -180,14 +189,14 @@ export const AccountSwitcher = ({
           </Menu.Item>
         ))}
         <Divider mb={8} />
-        <ActionButtons close={close} />
+        <ActionButtons close={closeAll} />
       </>
     );
   }
 
   return (
     <>
-      <Group onClick={() => setUserSwitching(false)} className={classes.link}>
+      <Group onClick={onDisable} className={classes.link}>
         <IconChevronLeft />
         <Text>Back</Text>
       </Group>
@@ -206,8 +215,12 @@ export const AccountSwitcher = ({
       ))}
       <Divider />
       <Box p="md">
-        <ActionButtons close={close} />
+        <ActionButtons close={closeAll} />
       </Box>
     </>
   );
 };
+
+export {
+  AccountSwitcher
+}

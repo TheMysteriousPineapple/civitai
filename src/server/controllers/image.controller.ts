@@ -53,15 +53,15 @@ import {
   moderateImages,
 } from './../services/image.service';
 
-const reviewTypeToBlockedReason = {
-  csam: BlockImageReason.CSAM,
-  minor: BlockImageReason.TOS,
-  poi: BlockImageReason.TOS,
-  reported: BlockImageReason.TOS,
-  blocked: BlockImageReason.TOS,
-  tag: BlockImageReason.TOS,
-  newUser: BlockImageReason.Ownership,
-};
+// const reviewTypeToBlockedReason = {
+//   csam: BlockImageReason.CSAM,
+//   minor: BlockImageReason.TOS,
+//   poi: BlockImageReason.TOS,
+//   reported: BlockImageReason.TOS,
+//   blocked: BlockImageReason.TOS,
+//   tag: BlockImageReason.TOS,
+//   newUser: BlockImageReason.Ownership,
+// };
 
 export const moderateImageHandler = async ({
   input,
@@ -102,7 +102,7 @@ export const moderateImageHandler = async ({
           .filter((x) => !!x.pHash)
           .map((x) => ({
             hash: x.pHash,
-            reason: reviewTypeToBlockedReason[input.reviewType],
+            reason: 'csam' //reviewTypeToBlockedReason[input.reviewType],
           })),
       });
     } else {
@@ -405,11 +405,11 @@ export const getImagesAsPostsInfiniteHandler = async ({
         images,
         review: review
           ? {
-              rating: review.rating,
-              details: review.details,
-              recommended: review.recommended,
-              id: review.id,
-            }
+            rating: review.rating,
+            details: review.details,
+            recommended: review.recommended,
+            id: review.id,
+          }
           : undefined,
       };
     });

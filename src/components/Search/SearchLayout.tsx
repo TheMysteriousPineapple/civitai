@@ -107,6 +107,7 @@ const useStyles = createStyles((theme, _, getRef) => {
 });
 
 function renderSearchComponent(props: RenderSearchComponentProps) {
+  debugger
   return <CustomSearchBox {...props} />;
 }
 
@@ -135,6 +136,8 @@ export function SearchLayout({
     setSidebarOpenState(value);
     setSidebarOpenLocalStorage(value);
   };
+
+  debugger
 
   const ctx = useMemo(() => ({ sidebarOpen, setSidebarOpen }), [sidebarOpen]);
 

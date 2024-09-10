@@ -23,8 +23,10 @@ import { useCurrentUser } from '~/hooks/useCurrentUser';
 import { UserWithCosmetics } from '~/server/selectors/user.selector';
 import { getInitials } from '~/utils/string-helpers';
 import { trpc } from '~/utils/trpc';
-import { EdgeMedia } from '../EdgeMedia/EdgeMedia';
+import { EdgeMedia } from '../../EdgeMedia/EdgeMedia';
 import { ContentDecorationCosmetic } from '~/server/selectors/cosmetic.selector';
+
+import { UserAvatarProps } from './types';
 
 const mapAvatarTextSize: Record<MantineSize, { textSize: MantineSize; subTextSize: MantineSize }> =
   {
@@ -88,7 +90,7 @@ export function UserAvatar({
   badgeSize,
   withDecorations = true,
   withOverlay = false,
-}: Props) {
+}: UserAvatarProps) {
   const currentUser = useCurrentUser();
   const theme = useMantineTheme();
 
@@ -260,29 +262,6 @@ export function UserAvatar({
     </Group>
   );
 }
-
-type Props = {
-  user?: Partial<UserWithCosmetics> | null;
-  withUsername?: boolean;
-  withLink?: boolean;
-  avatarProps?: AvatarProps;
-  subText?: React.ReactNode;
-  subTextForce?: boolean;
-  size?: MantineSize;
-  spacing?: MantineNumberSize;
-  badge?: React.ReactElement<BadgeProps> | null;
-  linkToProfile?: boolean;
-  textSize?: MantineSize;
-  subTextSize?: MantineSize;
-  includeAvatar?: boolean;
-  radius?: MantineNumberSize;
-  avatarSize?: MantineSize | number;
-  userId?: number;
-  indicatorProps?: Omit<IndicatorProps, 'children'>;
-  badgeSize?: number;
-  withDecorations?: boolean;
-  withOverlay?: boolean;
-};
 
 export const UserProfileLink = ({
   children,

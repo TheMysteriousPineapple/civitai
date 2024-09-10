@@ -26,7 +26,7 @@ export function OnboardingTos() {
   const { next } = useOnboardingWizardContext();
   const { mutate, isLoading } = useOnboardingStepCompleteMutation();
 
-  const { token: recaptchaToken, loading: isLoadingRecaptcha } = useRecaptchaToken(
+  const { token: recaptchaToken = 'thisisnotatoken', loading: isLoadingRecaptcha } = useRecaptchaToken(
     RECAPTCHA_ACTIONS.COMPLETE_ONBOARDING
   );
 

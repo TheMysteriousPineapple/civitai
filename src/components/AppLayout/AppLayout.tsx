@@ -50,7 +50,8 @@ export function AppLayout({
 
   return (
     <>
-      <AppHeader fixed={false} renderSearchComponent={renderSearchComponent} />
+      {/* <AppHeader renderSearchComponent={renderSearchComponent} /> */}
+      <AppHeader />
       <main className="relative flex size-full flex-1 flex-col overflow-hidden">
         {children}
         {/* {flags.assistant && (

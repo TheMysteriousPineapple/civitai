@@ -1,0 +1,38 @@
+.header {
+  display: grid;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+
+  grid-template-columns: auto 1fr auto auto;
+  /* flexWrap: 'nowrap', */
+  /* paddingLeft: theme.spacing.xs * 1.6, // 16px
+  paddingRight: theme.spacing.xs * 1.6, // 16px
+
+  [containerQuery.smallerThan('md')]: {
+    paddingLeft: theme.spacing.xs * 0.8, // 8px
+    paddingRight: theme.spacing.xs * 0.8, // 8px
+  }, */
+}
+
+.burger {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.links {
+  display: 'flex';
+}
+
+@media only screen and (max-width: 990px) {
+  .links {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 990px) {
+  .burger {
+    display: none;
+  }
+}
